@@ -14,13 +14,10 @@ run_test: main
 	./compile
 
 
-headers: process.h
+headers: Process.h Memory.h
 
 
-classes: process.cpp
-
-
-main: headers classes main.cpp
+main: headers main.cpp
 	${CXX} main.cpp -o compile
 
 

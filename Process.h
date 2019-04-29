@@ -10,6 +10,6 @@ struct Process
   int mem_reqs;
   int time_added_to_memory;
   int is_active;
-  int time_finish;
+  int time_finished;
 
 };
