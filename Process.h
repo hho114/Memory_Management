@@ -15,6 +15,11 @@ public:
 
   Process(){}
 
+  bool operator < (const Process & process) const
+  {
+    
+  }
+
 private:
 
   int id;
