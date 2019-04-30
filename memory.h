@@ -1,7 +1,7 @@
 
 #pragma once
 
-struct FRAME{
+struct frame{
     // 1 if assigned to process, otherwise 0
     int assigned;
     char location[40];
@@ -11,7 +11,7 @@ struct FRAME{
 
 
  struct frame_list {
-    FRAME * frames;
+    frame * frames;
     int number_of_frames;
     int page_size;
 };
@@ -37,7 +37,7 @@ frame_list * createFameList(int number_of_frames, int page_size)
     return list;
 }
 
-bool isEnoughMemoryForProcess(frame_list* list, PROCESS* process)
+bool isEnoughMemoryForProcess(frame_list* list, process* process)
 {
 
     for (int i = 0; i < list->number_of_frames; i++) {
@@ -51,7 +51,7 @@ bool isEnoughMemoryForProcess(frame_list* list, PROCESS* process)
     return (num_free_frames * list->page_size) >= process->mem_reqs;
 }
 
-void putProcessIntoMemory(frame_list* list, PROCESS* process)
+void putProcessIntoMemory(frame_list* list, process* process)
 {
     // this assumes you've already checked that you *can* fit the proc into mem
     int current_page = 1;
@@ -140,7 +140,7 @@ bool isFrameListEmpty(frame_list* list)
 void FreeMemory(frame_list* list, int pid)
  {
 
-    FRAME* frame;
+    frame * frame;
     for (int i = 0; i < list->number_of_frames; i++)
     {
         frame = &list->frames[i];

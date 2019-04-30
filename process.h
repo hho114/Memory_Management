@@ -1,7 +1,7 @@
 
 #pragma once
 
-struct Process
+struct process
 {
 
   int pid;
