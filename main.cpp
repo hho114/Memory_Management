@@ -1,19 +1,21 @@
-#include "Process.h"
-#include "Memory.h"
+#include "process.h"
+#include "memory.h"
 #include <iostream>
 #include <queue>
 using namespace std;
 
 
-Process * list_process;
-queue <Process> queue_process;
+process * listProcess;
+queue <Process> queueProcess;
 frame_list* framelist;
-int number_of_procs = 0;
-int termination = -1;
+
 
 int main()
 {
-  int page_size  = 0;
- int mem_size   = 0;
+  int pageSize;
+  int memSize;
+  string namefile;
+  userInput(memSize,pageSize,nameFile);
+
 
 }
