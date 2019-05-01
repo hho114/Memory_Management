@@ -1,9 +1,10 @@
 #include "process.h"
 #include "memory.h"
+#include <queue>
 using namespace std;
 
 
-void userInput(int & memSize, int & pageSize, string & nameFile)
+void userInput(int & mem, int & page, char & nameFile)
 {
     char buf[10];
     bool invalid = true;
@@ -13,7 +14,7 @@ void userInput(int & memSize, int & pageSize, string & nameFile)
 
         do {
             printf("Memory size: ");
-            sscanf(buf, "%d", mem);
+            sscanf(buf, "%d", &mem);
             if ( mem <= 0)
             {
                 clear_stdin(buf);
@@ -30,7 +31,7 @@ void userInput(int & memSize, int & pageSize, string & nameFile)
 
             do {
                 printf("Page size (1: 100, 2: 200, 3: 400): ");
-                sscanf(buf, "%d", page);
+                sscanf(buf, "%d", &page);
                 if ( page < 1 && page > 3)
                 {
                     clear_stdin(buf);
@@ -73,6 +74,156 @@ void userInput(int & memSize, int & pageSize, string & nameFile)
       {
             invalid = false;
       }
+
     } while(invalid);
 
+}
+
+
+
+// stores values processes in process array
+process * insertListProcess(const char & fileName, int & numProcess)
+{
+  if (!filePtr)
+  {
+      printf("ERROR: Failed to open file %s", file_path);
+      exit(1);
+  }
+
+    process * procList;
+    int numSpace,tmp;
+    int counter = 0;
+    int totalSpace =0;
+    FILE * filePtr = fopen(file_path, "r");
+
+
+    fscanf(filePtr, "%d", &numProcess);
+
+    while (!feof(filePtr) && counter < numProcess)
+    {
+        // store values for processes
+        fscanf(filePtr, "%d %d %d %d",
+               &(procList[counter].pid),
+               &(procList[counter].arrival_time),
+               &(procList[counter].life_time),
+               &numSpace);
+
+        // get total memory requirements for process
+        for (int i = 0; i < numSpace; i++)
+        {
+            fscanf(filePtr, "%d", &tmp);
+            totalSpace += tmp;
+        }
+
+        procList[counter].mem_reqs = totalSpace;
+        procList[counter].is_active = 0;
+        procList[counter].time_added_to_memory = -1;
+        procList[counter].time_finished = -1;
+
+        counter++;
+    }
+
+    fclose(filePtr);
+
+    return procList;
+}
+
+void insertNewProcessToQueue(int & currentTime, process * listProcess,
+  frameList * fList, int & numProcess, queue<process> & queueProcess, int & queueSize)
+{
+
+    process * p;
+
+    for (int i = 0; i < numProcess; i++)
+    {
+        p = &listProcess[i];
+
+        if (p->arrival_time == currentTime) {
+            printf("Process %d arrives\n",p->pid);
+
+            queueProcess.push(p);
+            queueSize++;
+
+            printQueueStatus(queueProcess);
+            printfList(fList);
+        }
+    }
+}
+
+
+
+void printQueueStatus(queue <process> queueProcess) {
+
+
+    process * p;
+
+    printf("\tInput queue: [ ");
+    for (int i = 0; i < queueProcess.size(); i++)
+    {
+        p = &queueProcess.front();
+        queueProcess.pop();
+        printf("%d ", p->pid);
+
+
+    }
+    printf("]\n");
+}
+
+void terminateCompleteProcess(const int & currentTime, int & numProcess, process * listProcess, frameList * fList)
+{
+    int  timeInMem;
+    process * p;
+
+    // dequeue any procs that need it
+    for (int i = 0; i < numProcess; i++)
+    {
+        p = &listProcess[i];
+        timeInMem = currentTime - p->time_added_to_memory;
+
+        if (p->is_active && (timeInMem >= p->life_time))
+        {
+            printf("%sProcess %d completes\n",p->pid);
+
+            p->is_active = 0;
+            p->time_finished = currentTime;
+
+            freeMemory(fList, p->pid);
+
+            printfList(fList);
+        }
+    }
+}
+
+
+void assignAvailableMemForWaitingProcess(const int & currentTime,queue<process> & queueProcess, int & queueSize, frameList * fList)
+{
+
+    process * p;
+    int dequeueCounter = 0;
+    // dequeue any procs that can be put into mem
+    for (int i = 0; i < queueSize; i++)
+    {
+
+        p = queueProcess.pop();
+
+        if (isEnoughMemoryForProcess(fList, p))
+        {
+          printf("%sMM moves Process %d to memory\n", proc->pid);
+
+          putProcessIntoMemory(fList, p);
+
+          p->is_active = 1;
+          p->time_added_to_memory = currentTime;
+
+          dequeueCounter++;
+          printQueueStatus(queueProcess);
+          printFrameList(fList);
+        }
+        else
+        {
+          queueProcess.push(p);
+        }
+    }
+
+    queueSize-=dequeueCounter;
 }

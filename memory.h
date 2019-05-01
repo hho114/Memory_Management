@@ -10,7 +10,7 @@ struct frame{
 };
 
 
- struct frame_list {
+ struct frameList {
     frame * frames;
     int number_of_frames;
     int page_size;
@@ -18,12 +18,12 @@ struct frame{
 
 
 
-frame_list * createFameList(int number_of_frames, int page_size)
+frameList * createFameList(int number_of_frames, int page_size)
 {
-    frame_list *list;
+    frameList *list;
 
     //returns the pointer to the beginning of newly allocated memory
-    list = malloc(sizeof(frame_list));
+    list = malloc(sizeof(frameList));
     //allocates enough for an array of number_of_frames
     //f->frames = (FRAME*)malloc(sizeof(FRAME) * number_of_frames);
     list->frames = malloc(sizeof(FRAME) * number_of_frames);
@@ -37,7 +37,7 @@ frame_list * createFameList(int number_of_frames, int page_size)
     return list;
 }
 
-bool isEnoughMemoryForProcess(frame_list* list, process* process)
+bool isEnoughMemoryForProcess(frameList* list, process* process)
 {
 
     for (int i = 0; i < list->number_of_frames; i++) {
@@ -51,7 +51,7 @@ bool isEnoughMemoryForProcess(frame_list* list, process* process)
     return (num_free_frames * list->page_size) >= process->mem_reqs;
 }
 
-void putProcessIntoMemory(frame_list* list, process* process)
+void putProcessIntoMemory(frameList* list, process* process)
 {
     // this assumes you've already checked that you *can* fit the proc into mem
     int current_page = 1;
@@ -82,7 +82,7 @@ void putProcessIntoMemory(frame_list* list, process* process)
 }
 
 
-void printFrameList(frame_list* list)
+void printFrameList(frameList* list)
 {
     int in_free_block = 0, start;
 
@@ -123,7 +123,7 @@ void printFrameList(frame_list* list)
 }
 
 
-bool isFrameListEmpty(frame_list* list)
+bool isFrameListEmpty(frameList* list)
 {
 
     for (int i = 0; i < list->number_of_frames; i++)
@@ -137,7 +137,7 @@ bool isFrameListEmpty(frame_list* list)
     return 1;
 }
 
-void FreeMemory(frame_list* list, int pid)
+void freeMemory(frameList* list, int pid)
  {
 
     frame * frame;

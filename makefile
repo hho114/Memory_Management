@@ -14,7 +14,7 @@ run_test: main
 	./compile
 
 
-headers: Process.h Memory.h
+headers: process.h memory.h functions.h
 
 
 main: headers main.cpp
