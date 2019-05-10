@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 #include <fstream>
-#include <cmath>
 using namespace std;
 
 
@@ -107,9 +106,6 @@ void userInput(int & mem, int & page, string& nameFile)
 
 cout<<"\n\n**************************OUTPUT****************************"<<endl;
 }
-
-
-
 
 
 // stores values processes in process array

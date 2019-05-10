@@ -85,29 +85,3 @@ private:
   bool mIsAssigned;
 
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-// struct frame{
-//     // 1 if assigned to process, otherwise 0
-//     int assigned;
-//     int proc_assign;
-//     int page_num;
-// };
-//
-//
-//  struct frameList {
-//     frame * frames;
-//     int number_of_frames;
-//     int page_size;
-// };
