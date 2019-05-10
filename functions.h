@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <iomanip>
 using namespace std;
 
 
@@ -90,7 +91,7 @@ void userInput(int & mem, int & page, string& nameFile)
 
         cin.clear();
         cin.ignore(1000, '\n');
-        cout<<"Enter name file: ";
+        cout<<"Enter name input file: ";
         getline(cin,nameFile);
         ifstream f(nameFile.c_str());
 
@@ -312,4 +313,15 @@ void insertProcessToMemMap(int pageSize, int timeTrack, vector <Frame> & memoryM
     }
   }
 
+}
+
+void calculateAverageTurnAround(vector<Process> & processList)
+{
+  double sum =0;
+  for (size_t i = 0; i < processList.size(); i++)
+  {
+    sum += processList[i].getTurnAroundTime();
+  }
+
+  cout<< "\nAverage Turnaround Time: " <<fixed << setprecision(2) << (double) (sum/processList.size()) <<endl;
 }

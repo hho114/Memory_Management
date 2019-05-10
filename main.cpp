@@ -4,7 +4,7 @@
 #include <fstream>
 #include <vector>
 #include <iostream>
-#include <iomanip>
+
 using namespace std;
 
 
@@ -14,7 +14,7 @@ int main()
   vector<Process> queueProcess;
   vector<Frame> memoryMap;
   string nameFile;
-  int memSize=0, pageSize=0, numProcess=0,sumTurnAroundTime = 0, timeTrack =0;
+  int memSize=0, pageSize=0, numProcess=0, timeTrack =0;
 
   userInput(memSize,pageSize, nameFile);
 
@@ -23,25 +23,17 @@ int main()
   createMemoryMapList(memoryMap,pageSize, memSize);
 
 
-  while(1)
+  do
   {
     processArrival(timeTrack,queueProcess,processList);
     updateMemoryMap(pageSize, timeTrack, memoryMap,processList);
     insertProcessToMemMap(pageSize, timeTrack, memoryMap, queueProcess,processList);
     timeTrack++;
 
-      if (timeTrack > 10000 && queueProcess.size() == 0 )
-      {
-          break;
-      }
+  }while(!(timeTrack > 10000 && queueProcess.size() == 0));
 
-  }
 
-  for (size_t i = 0; i < processList.size(); i++)
-  {
-    sumTurnAroundTime += processList[i].getTurnAroundTime();
-  }
-  cout<< "\nAverage Turnaround Time: " <<fixed << setprecision(2) << (float) (sumTurnAroundTime/numProcess) <<endl;
+  calculateAverageTurnAround(processList);
 
-    return 0;
+  return 0;
 }
