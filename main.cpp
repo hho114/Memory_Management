@@ -1,59 +1,47 @@
 #include "process.h"
-#include "memory.h"
+#include "frame.h"
 #include "functions.h"
+#include <fstream>
+#include <vector>
 #include <iostream>
-#include <queue>
+#include <iomanip>
 using namespace std;
-
-
-
 
 
 int main()
 {
+  vector<Process> processList;
+  vector<Process> queueProcess;
+  vector<Frame> memoryMap;
+  string nameFile;
+  int memSize=0, pageSize=0, numProcess=0,sumTurnAroundTime = 0, timeTrack =0;
 
-  int currentTime=0;
-  process * listProcess;
-  queue <process> queueProcess;
-  frameList * fList;
+  userInput(memSize,pageSize, nameFile);
 
-  int pageSize=0, memSize=0, queueSize=0, numProcess=0, turnAroundTime=0;
-  char namefile[10];
-  userInput(memSize,pageSize,nameFile);
-  listProcess = insertListProcess(nameFile);
+  insertListProcess(nameFile, numProcess, processList);
 
-  fList = createFameList(memSize/pageSize, pageSize);
-
-
+  createMemoryMapList(memoryMap,pageSize, memSize);
 
 
   while(1)
   {
+    processArrival(timeTrack,queueProcess,processList);
+    updateMemoryMap(pageSize, timeTrack, memoryMap,processList);
+    insertProcessToMemMap(pageSize, timeTrack, memoryMap, queueProcess,processList);
+    timeTrack++;
 
-    insertNewProcessToQueue(currentTime,listProcess,fList,numProcess,queueProcess, queueSize);
-    terminateCompleteProcess(currentTime,numProcess,listProcess,fList);
-    assignAvailableMemForWaitingProcess( currentTime, queueProcess, queueSize, fList);
-    currentTime++;
-    if (currentTime > TIME_MAX)
-    {
-        printf("DEADLOCK: max time reached\n");
-        break;
-    }
-
-    if (queue->size == 0 && isfListEmpty(fList))
-    {
-        break;
-    }
+      if (timeTrack > 10000 && queueProcess.size() == 0 )
+      {
+          break;
+      }
 
   }
 
-
-  //print Average turnAroundTime
-    for (int i = 0; i < numProcess; i++) {
-         turnAroundTime += listProcess[i].time_finished - listProcess[i].arrival_time;
-    }
-    printf("Average Turnaround Time: %2.2f\n", total / numProcess);
-
+  for (size_t i = 0; i < processList.size(); i++)
+  {
+    sumTurnAroundTime += processList[i].getTurnAroundTime();
+  }
+  cout<< "\nAverage Turnaround Time: " <<fixed << setprecision(2) << (float) (sumTurnAroundTime/numProcess) <<endl;
 
     return 0;
 }

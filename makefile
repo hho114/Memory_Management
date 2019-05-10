@@ -10,11 +10,12 @@ CXX = ${CXX_COMMAND} -std=c++14 -Wall
 
 all: run_test
 
+
 run_test: main
 	./compile
 
 
-headers: process.h memory.h functions.h
+headers: process.h frame.h functions.h
 
 
 main: headers main.cpp
@@ -22,4 +23,4 @@ main: headers main.cpp
 
 
 clean:
-rm -f compile
+	rm -f compile
