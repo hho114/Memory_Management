@@ -17,7 +17,7 @@ other machine (Unix).
 
 //Responsibilities
 Name	                          Responsibilities
-Alex Ho  	                      Implementation
+Alex Ho  	                  Implementation
 Daniel Walsh	                  Design/ Written Documentation
 
 //Instructions to Compile
