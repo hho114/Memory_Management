@@ -20,7 +20,7 @@ Open up the terminal in that folder, run the commands "g++ -o main main.cpp <Ent
 
 Then run the command "./main <Enter>".
 
-** Now we are in the programs Execution **
+**Now we are in the programs Execution **
 
 First, it'll ask "Memory Size: ", and you'll input "2000 <Enter>"
   
