@@ -1,19 +1,19 @@
 //Introduction/Purpose
-The purpose of this project is to have you write a simulation that explores the effects of 
-limited memory and memory management policies. Your simulator will read policy information 
-and the characteristics of the workload from input files and then will simulate the execution 
+The purpose of this project is to have you write a simulation that explores the effects of
+limited memory and memory management policies. Your simulator will read policy information
+and the characteristics of the workload from input files and then will simulate the execution
 of the processes as well as decisions of Memory Manager (MM).
 
 //Project Overview
-The simulator will generate an output file with the trace of important events, as well as 
-the memory map and the input queue status after each event. At the end of the simulation, 
+The simulator will generate an output file with the trace of important events, as well as
+the memory map and the input queue status after each event. At the end of the simulation,
 your program will also print the average turnaround time per process.
 
 //Design Constraints
-No skeleton code was provided so we created all the code from scratch. We use three header 
-files and one source file. Another constraint was implementing the code into the said diagrams, 
-making sure all key components were correct and operating on our machines (Linux) and our 
-other machine (Unix). 
+No skeleton code was provided so we created all the code from scratch. We use three header
+files and one source file. Another constraint was implementing the code into the said diagrams,
+making sure all key components were correct and operating on our machines (Linux) and our
+other machine (Unix).
 
 //Responsibilities
 Name	                          Responsibilities
@@ -23,8 +23,8 @@ Daniel Walsh	                  Design/ Written Documentation
 //Instructions to Compile
 In the Linux Environment, create a folder titled "Project2" in the desktop.
 Add files 'in1.txt', 'frame.h', 'functions.h', 'process.h', 'main.cpp' to Folder "Project2".
-Open up the terminal in that folder, run the commands "g++ -o main main.cpp <Enter>"
-Then run the command "./main <Enter>".
+Open up the terminal in that folder, enter the commands "make"
+
 ** Now we are in the programs Execution **
 First, it'll ask "Memory Size: ", and you'll input "2000 <Enter>"
 Then, it'll ask "Page Size: ", and you'll input "1 <Enter>" OR "2 <Enter>" OR "3 <Enter>"
