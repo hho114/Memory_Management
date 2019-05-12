@@ -12,11 +12,11 @@ Environment: Linux
 
 Instructions:
 
-In the Linux Environment, create a folder titled "Project2" in the desktop.
+In the Linux Environment.
 
-Add files 'in1.txt', 'frame.h', 'functions.h', 'process.h', 'main.cpp' to Folder "Project2".
+Open up the terminal, go to Project directory where contain files 'in1.txt', 'frame.h', 'functions.h', 'process.h', 'main.cpp'.
 
-Open up the terminal in that folder, enter the commands "make"
+Enter the commands "make".
 
 
 ** Now we are in the programs Execution **
